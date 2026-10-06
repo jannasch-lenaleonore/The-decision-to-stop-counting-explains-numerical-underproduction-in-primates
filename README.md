@@ -7,7 +7,7 @@ MATLAB code and behavioural data for the modelling in
 
 Two rhesus macaques produced an instructed number of hand movements and ended
 each sequence themselves. This repository fits and evaluates the stochastic
-**stopping model** of that termination decision, compares it against the two
+stopping model of that termination decision, compares it against the two
 classical mental-number-line accounts, and produces the model-derived figure
 panels, tables and numbers reported in the manuscript.
 
@@ -15,7 +15,7 @@ panels, tables and numbers reported in the manuscript.
 
 ```matlab
 >> run_all           % every figure and every table, from the fitted
-                     % parameters shipped in results/ 
+                     % parameters/ 
 >> run_all('refit')  % refit everything from the raw data first, overwriting
                      % results/ (several hours)
 ```
