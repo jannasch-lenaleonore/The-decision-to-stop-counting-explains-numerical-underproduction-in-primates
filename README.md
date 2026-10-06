@@ -3,7 +3,7 @@
 MATLAB code and behavioural data for the modelling in
 
 > Seidler, L. E., Jannasch, L. L., Westendorff, S. & Nieder, A.
-> *The decision to stop 'counting' shapes numerical production in primates.*
+> *The decision to stop ‘counting’ explains numerical underproduction in primates.*
 
 Two rhesus macaques produced an instructed number of hand movements and ended
 each sequence themselves. This repository fits and evaluates the stochastic
