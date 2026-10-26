@@ -4,12 +4,13 @@ MATLAB code and behavioural data for the modelling in
 
 > Seidler, L. E., Jannasch, L. L., Westendorff, S. & Nieder, A.
 > *The decision to stop ‘counting’ explains numerical underproduction in primates.*
+> Proc. Natl. Acad. Sci. U.S.A. (2026)
 
 Two rhesus macaques produced an instructed number of hand movements and ended
 each sequence themselves. This repository fits and evaluates the stochastic
 stopping model of that termination decision, compares it against the two
 classical mental-number-line accounts, and produces the model-derived figure
-panels, tables and numbers reported in the manuscript.
+panels and statistics reported in the manuscript.
 
 ## Quick start
 
@@ -20,21 +21,18 @@ panels, tables and numbers reported in the manuscript.
                      % results/ (several hours)
 ```
 
-The default reuses `results/` because those are the fits the manuscript
-reports. `'refit'` regenerates them from the behavioural data; the fitting is
-stochastic, so a refit of the RT model in particular settles on a different
-optimum and shifts Table 1.
+The default uses `results/` because those are the fits the manuscript
+reports. `'refit'` regenerates them from the behavioural data and overwrites 
+the fitting parameters in `results/`.
 
 `run_all.m` sets up the paths itself, so it works from any working directory,
 and it prints a banner before each stage. 
 
 Every stage is also an ordinary script that can be run on its own — see the
-order in `run_all.m`.
+order in `run_all.m`. To understand the model and try out different parameters, 
+start with diffusion_model_fig4. 
 
-## Requirements
-
-- MATLAB R2023a or later with the Statistics and Machine Learning Toolbox
-  (`quantile`, `signrank`, `corr`, `fminsearch`, `boxplot`).
+## Data
 
 The behavioural data are included in `data/`: `bhv_data_tbl_m1.mat` (Monkey 1,
 36 sessions) and `bhv_data_tbl_m2.mat` (Monkey 2, 40 sessions), each holding a
@@ -43,6 +41,10 @@ The behavioural data are included in `data/`: `bhv_data_tbl_m1.mat` (Monkey 1,
 column 5 the outcome (`0` correct, `6` error); all-`9` rows are padding and are
 dropped on load. `RT_conf` and `RT_err_conf` hold the confirmation reaction
 times of that session's correct and error trials, in order.
+
+## Requirements
+
+- MATLAB R2023a or later with the Statistics and Machine Learning Toolbox.
 
 ## What produces what
 
