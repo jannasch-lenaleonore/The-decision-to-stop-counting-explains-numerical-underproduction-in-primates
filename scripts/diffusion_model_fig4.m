@@ -1,8 +1,7 @@
 % diffusion_model_fig4.m
 %
 % Forward simulation of the stopping model at the fitted parameters, drawn
-% against the monkeys' data.  Reads results/params_perf.mat, so it always
-% shows the parameter set the manuscript reports.
+% against the monkeys' data.  Reads results/params_perf.mat.
 %
 % Model: drift rate drawn fresh per trial from N(drift_mean, drift_sigma)
 % (drift_sigma = Ratcliff's eta, zero in the manuscript's variant), starting
@@ -30,11 +29,6 @@ RT_cutoff    = 1100;    % exclude monkey RTs above this value (ms) --> invalid
 resp_time_scaling = [200, 500, 800, 1100, 200, 200, 800, 400];
 
 
-% Parameters of the stopping model.  These are READ FROM THE FIT rather than
-% typed in, so this figure can never drift away from the numbers reported in
-% the results text and used in the cross-validation.  Hardcoding them meant
-% every refit of fit_diffusion_mle_MS.m silently left the figures behind.
-%
 % The pooled fit is the one the paper reports (one parameter set for both
 % animals); params_perf.mat also holds the per-animal fits under labels
 % 'm1' and 'm2' if a per-animal version of a panel is ever wanted.
@@ -52,11 +46,6 @@ end
 fprintf(['Stopping model from params_perf.mat (%s): drift %.4f, ' ...
     'sigma_z %.4f, neg-LL %.2f\n'], fit_pooled.label, drift_mean, sigma_z, ...
     fit_pooled.nll_eval);
-% The per-animal fits and the fitted-vs-observed category tables used to be
-% transcribed here as comments.  They are deliberately gone: they went stale
-% at every refit and there is no way to tell a stale comment from a current
-% one by reading it.  Run model_comparison_fig4.m for the current tables, or
-% inspect perf_fit.fit_perf directly.
 
 
 
@@ -78,11 +67,6 @@ draw_drift = @() drift_mean + drift_sigma * randn();
 draw_start = @() sigma_z * abs(randn());
 
 % --- Run n_trials trials ---
-% Taken from the fit rather than chosen here, so the curves drawn in these
-% figures are the same evaluation of the model that produced the numbers in
-% the text.  At 20,000 the figures carried a few tenths of a percentage point
-% of Monte Carlo noise relative to the reported predictions; at the fit's
-% n_eval they agree to the printed precision.
 n_trials = fit_pooled.n_eval;
 offsets  = NaN(1, n_trials);
 rts      = NaN(1, n_trials);
@@ -236,8 +220,7 @@ end
 
 % --- Demo trials ---
 % Own seed, so the illustrated trials do not change when anything upstream
-% draws a different number of random values — raising n_trials used to
-% silently reshuffle this panel.  This seed gives one trial stopping early,
+% draws a different number of random values. This seed gives one trial stopping early,
 % one correct and one late, in that order.
 rng(5)
 
@@ -294,14 +277,7 @@ t_demo_x = t(1 : plot_end);
 lw = 1.6;
 fs = 16;
 
-% One call styles every axis, as in model_comparison_fig4.m: tick labels at
-% the same size as the axis labels, and all text in true black rather than
-% MATLAB's default grey, which prints washed out.
 style_ax = @(ax) apply_axis_style(ax, fs, lw);
-% The stopping model carries ONE colour across every figure of the paper: the
-% Okabe-Ito blue used for it in model_comparison_fig4.m.  Keep the two in
-% step — a reader who has learned "blue = the stopping model" in one figure
-% must not meet it in a different colour in the next.
 clr_stop = [0.00 0.45 0.70];
 
 % The three demo trials are three draws from that same model, so they are
@@ -510,11 +486,6 @@ for mk = 1 : 2
 end
 y_q_max = min(ceil(y_q_max / 100) * 100, RT_cutoff);
 
-% This row of five narrow panels is the one that ends up smallest on the
-% page, so it carries its own font size a few points above the shared fs and
-% a slightly wider canvas to pay for it.  The rest of the script keeps fs.
-% Do not push past +3: at +4 the y tick labels no longer fit and MATLAB
-% silently drops the 200 ms ticks down to 0/500/1000.
 fs_q = fs + 3;
 
 figure('Color', 'w', 'Units', 'centimeter', 'Position', [5 5 34 11])
@@ -542,9 +513,7 @@ for ci = 1 : n_cats
     end
 
     xlim([0 1]);  ylim([0, y_q_max])
-    % Three ticks, not five: at this label size five would not fit across a
-    % fifth of the figure and MATLAB silently rotates them to vertical.  All
-    % five quantiles are still plotted as markers.
+    % Three ticks, five do not fit.  All five quantiles are still plotted as markers.
     xticks([.1 .5 .9]);  xticklabels({'.1','.5','.9'});  xtickangle(0)
     xlabel('Quantile', 'FontSize', fs_q)
     if ci == 1
