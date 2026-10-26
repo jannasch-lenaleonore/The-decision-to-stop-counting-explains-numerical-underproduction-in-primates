@@ -15,8 +15,7 @@ panels and statistics reported in the manuscript.
 ## Quick start
 
 ```matlab
->> run_all           % every figure and every table, from the fitted
-                     % parameters/ 
+>> run_all           % figures and statistics from the fitted parameters 
 >> run_all('refit')  % refit everything from the raw data first, overwriting
                      % results/ (several hours)
 ```
